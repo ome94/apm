@@ -9,6 +9,16 @@ export class ProductListComponent {
   imageWidth: number = 50;
   imageMargin: number = 2;
   showImage: boolean = false;
+  
+  private _listFilter: string = '';
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(filterString: string) {
+    this._listFilter = filterString;
+  }
+  
   products: any[] = [
     {
       "productId": 1,
