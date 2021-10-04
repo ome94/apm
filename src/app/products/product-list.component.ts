@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IProduct } from './product';
 
 @Component({
@@ -6,7 +6,7 @@ import { IProduct } from './product';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   pageTitle: string = 'Product List';
   imageWidth: number = 50;
   imageMargin: number = 2;
@@ -19,8 +19,10 @@ export class ProductListComponent {
 
   set listFilter(filterString: string) {
     this._listFilter = filterString;
+    this.filteredProducts = this.filterProducts(this.listFilter);
   }
   
+  filteredProducts: IProduct[] = [];
   products: IProduct[] = [
     {
       "productId": 1,
@@ -72,9 +74,21 @@ export class ProductListComponent {
       "starRating": 4.6,
       "imageUrl": "assets/images/xbox-controller.png"
     }  
-  ]
+  ];
 
   toggleImage(): void {
     this.showImage = !this.showImage
+  };
+
+  filterProducts(filterBy: string): IProduct[] {
+    filterBy = this.listFilter.toLocaleLowerCase();
+    return this.products.filter(
+      (product: IProduct) => 
+          product.productName.toLocaleLowerCase().includes(filterBy)
+    );
+  };
+
+  ngOnInit(): void {
+    this.filteredProducts = this.products;
   }
 }
