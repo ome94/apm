@@ -33,7 +33,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   products: IProduct[] = [];
 
   toggleImage(): void {
-    this.showImage = !this.showImage
+    this.showImage = !this.showImage;
   };
 
   filterProducts(filterBy: string): IProduct[] {
